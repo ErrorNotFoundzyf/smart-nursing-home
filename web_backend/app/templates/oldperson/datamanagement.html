@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>实时数据页面</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- STYLESHEETS --><!--[if lt IE 9]><script src="js/flot/excanvas.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/cloud-admin.css" >
+	<link rel="stylesheet" type="text/css"  href="css/themes/default.css" id="skin-switcher" >
+	<link rel="stylesheet" type="text/css"  href="css/responsive.css" >
+	
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- JQUERY UI-->
+	<link rel="stylesheet" type="text/css" href="js/jquery-ui-1.10.3.custom/css/custom-theme/jquery-ui-1.10.3.custom.min.css" />
+	<!-- DATE RANGE PICKER -->
+	<link rel="stylesheet" type="text/css" href="js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+	<!-- DATA TABLES -->
+	<link rel="stylesheet" type="text/css" href="js/datatables/media/css/jquery.dataTables.min.css" />
+	<link rel="stylesheet" type="text/css" href="js/datatables/media/assets/css/datatables.min.css" />
+	<link rel="stylesheet" type="text/css" href="js/datatables/extras/TableTools/media/css/TableTools.min.css" />
+	<!-- FONTS -->
+	<link href='font-awesome/fonts/open-sans.css' rel='stylesheet' type='text/css'>
+	<!-- DATE PICKER -->
+	<link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.min.css" />
+	<link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.date.min.css" />
+	<link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.time.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/custom.css" >
+</head>
+<body>
+	<!-- HEADER -->
+	{% include 'topbar.html' %}
+	<!--/HEADER -->
+	
+	<!-- PAGE -->
+	<section id="page">
+		{% include 'leftsidebar.html' %}
+
+		<div id="main-content">
+			<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
+			<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					  <h4 class="modal-title">Box Settings</h4>
+					</div>
+					<div class="modal-body">
+					  Here goes box setting content.
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					  <button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				  </div>
+				</div>
+				<div id="chart-dash" class="chart"></div>
+			  </div>
+			<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
+			<div class="container">
+				<div class="row">
+					<div id="content" class="col-lg-12">
+						<!-- PAGE HEADER-->
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="page-header">
+									<!-- STYLER -->
+
+									<!-- /STYLER -->
+									<!-- BREADCRUMBS -->
+									<ul class="breadcrumb">
+
+										<li>实时报表 - 数据展示</li>
+									</ul>
+									<!-- /BREADCRUMBS -->
+									<div class="clearfix">
+										<h3 class="content-title pull-left">实时数据看板：陌生人识别　禁区入侵　摔倒检测　表情检测　义工互动</h3>
+										<!-- DATE RANGE PICKER -->
+
+										<!-- /DATE RANGE PICKER -->
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- /PAGE HEADER -->
+						<!-- DASHBOARD CONTENT -->
+						<div class="row" id="firstrowid">
+							<!-- COLUMN 1 -->
+							<!-- /STATISTICS -->
+							<div class="col-md-6 danger-alert-box">
+								<div class="box box-accent-red">
+									<div class="box-title" style="display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid #FCCFC0;background:#FFF8F6;">
+										<i class="fa fa-exclamation-triangle" style="color:#C0392B;margin-right:8px;"></i><span style="font-size:14px;font-weight:700;color:#1A1209;">危险预警</span>
+									</div>
+
+									<div class="panel panel-default">
+									<div class="panel-body">
+										<table class="table table-striped table-bordered table-hover">
+
+										 <tbody>
+										 {% for data in listdata %}
+											<tr>
+											   <td>{{data.event_date}}&nbsp;&nbsp;&nbsp;{{data.event_location}}&nbsp;&nbsp;{{data.event_desc}}</td>
+											</tr>
+										  {% endfor %}
+
+
+										 </tbody>
+									</table>
+									</div>
+								</div>
+								</div>
+							</div>
+							<!-- /COLUMN 1 -->
+							<!-- COLUMN 2 -->
+							<div class="col-md-6 danger-alert-box" >
+								<div class="box box-accent-red">
+									<div class="box-title" style="display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid #FCCFC0;background:#FFF8F6;">
+										<i class="fa fa-exclamation-triangle" style="color:#C0392B;margin-right:8px;"></i><span style="font-size:14px;font-weight:700;color:#1A1209;">危险预警</span>
+									</div>
+
+									<div class="panel panel-default">
+									<div class="panel-body2">
+										<table class="table table-striped table-bordered table-hover">
+
+										 <tbody>
+										 {% for data in listdata2 %}
+											<tr>
+											   <td>{{data.event_date}}&nbsp;&nbsp;&nbsp;{{data.event_location}}&nbsp;&nbsp;{{data.event_desc}}</td>
+											</tr>
+										  {% endfor %}
+
+
+										 </tbody>
+									</table>
+									</div>
+								</div>
+								</div>
+							</div>
+							<!-- /COLUMN 2 -->
+
+						</div>
+					   <!-- /DASHBOARD CONTENT -->
+
+						<!-- DYNAMIC CHART -->
+						<div class="row">
+							<div class="col-md-6">
+								<!-- BOX -->
+								<div class="box box-accent-orange">
+								<div class="box-title" style="display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid #F5D5C0;background:#FDF5EE;">
+									<i class="fa fa-smile-o" style="color:#CF6A48;margin-right:8px;"></i><span style="font-size:14px;font-weight:700;color:#1A1209;">今日微笑之星</span>
+								</div>
+									<div class="box-body" id="main" style="width: 500px;height:350px;">
+
+									</div>
+								</div>
+								<!-- /BOX -->
+							</div>
+							<div class="col-md-6">
+								<!-- BOX -->
+								<div class="box box-accent-green">
+								<div class="box-title" style="display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid #BFD9CB;background:#F2F9F5;">
+									<i class="fa fa-users" style="color:#3D7A54;margin-right:8px;"></i><span style="font-size:14px;font-weight:700;color:#1A1209;">今日和义工互动之星</span>
+								</div>
+									<div class="box-body" id="main2" style="width: 500px;height:350px;">
+
+									</div>
+								</div>
+								<!-- /BOX -->
+							</div>
+						</div>
+						<!-- /DYNAMIC CHART -->
+
+
+						<div class="footer-tools">
+							<span class="go-top">
+								<i class="fa fa-chevron-up"></i> Top
+							</span>
+						</div>
+					</div><!-- /CONTENT-->
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<script src="js/jquery/jquery-2.0.3.min.js"></script>
+	<!-- JQUERY UI-->
+	<script src="js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<!-- BOOTSTRAP -->
+	<script src="bootstrap-dist/js/bootstrap.min.js"></script>
+	
+		
+	<!-- DATE RANGE PICKER -->
+	<script src="js/bootstrap-daterangepicker/moment.min.js"></script>
+	
+	<script src="js/bootstrap-daterangepicker/daterangepicker.min.js"></script>
+	<!-- SLIMSCROLL -->
+	<script type="text/javascript" src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script><script type="text/javascript" src="js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
+	<!-- BLOCK UI -->
+	<script type="text/javascript" src="js/jQuery-BlockUI/jquery.blockUI.min.js"></script>
+	<!-- DATA TABLES -->
+	<script type="text/javascript" src="js/datatables/media/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="js/datatables/media/assets/js/datatables.min.js"></script>
+	<script type="text/javascript" src="js/datatables/extras/TableTools/media/js/TableTools.min.js"></script>
+	<script type="text/javascript" src="js/datatables/extras/TableTools/media/js/ZeroClipboard.min.js"></script>
+	<!-- DATE PICKER -->
+	<script type="text/javascript" src="js/datepicker/picker.js"></script>
+	<script type="text/javascript" src="js/datepicker/picker.date.js"></script>
+	<script type="text/javascript" src="js/datepicker/picker.time.js"></script>
+	<!-- COOKIE -->
+	<script type="text/javascript" src="js/jQuery-Cookie/jquery.cookie.min.js"></script>
+	<!-- SPARKLINES -->
+	<script type="text/javascript" src="js/sparklines/jquery.sparkline.min.js"></script>
+
+	<script  type="text/javascript" src="js/echarts/echarts.min.js"></script>
+	<!-- websocket --socket.io. SCRIPT -->
+	<script src="js/websocket/socket.io.js"></script>
+	<!-- CUSTOM SCRIPT -->
+	<script src="js/script.js"></script>
+
+	<script>
+
+	    var socket;
+		jQuery(document).ready(function() {
+			App.setPage("index");
+			App.init();
+			connet_ws();
+			loadVolunteerChart();
+			loadSmileChart();
+			if (typeof updateDangerBadge === 'function') updateDangerBadge();
+		});
+
+		$('a.reload').click(function() {
+           $.ajax("/datamanage").done(function (reply) {
+              $('.panel-body').html($(reply).find('.panel-body').html());
+          });
+        });
+
+        function refresh()
+        {
+           $.ajax("/datamanage").done(function (reply) {
+              $('.panel-body').html($(reply).find('.panel-body').html());
+               $('.panel-body2').html($(reply).find('.panel-body2').html());
+          });
+        }
+
+		function connet_ws()
+		{
+			namespace = '/realtimedata'
+			socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace,{'reconnection delay': 2000});
+
+			socket.on('realtime_data', function(msg) {
+				refresh();
+             });
+
+             socket.on('smile_data', function(msg) {
+				loadSmileChart();
+             });
+
+             socket.on('volunteer_data', function(msg) {
+				loadVolunteerChart();
+             });
+
+		}
+
+    function loadSmileChart(){
+    	var myChart = echarts.init(document.getElementById('main'));
+
+    	myChart.setOption({
+    	color: ['#CF6A48'],
+    	tooltip : {
+			trigger: 'axis',
+			axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			 }
+         },
+        grid: {
+			left: '3%',
+			right: '4%',
+			bottom: '3%',
+			containLabel: true
+         },
+        xAxis : [
+        	{
+				type : 'category',
+				data : [],
+				axisTick: {
+					alignWithLabel: true
+				}
+        	}
+    	],
+        yAxis : [
+           {
+              type : 'value',
+              minInterval:1
+           }
+         ],
+    series : [
+        {
+            name:'次数',
+            type:'bar',
+            barWidth: '60%',
+            data:[]
+        }
+    ]
+  });
+  myChart.showLoading();
+
+    var names = [];    //（实际用来盛放X轴坐标值）
+    var nums = [];    //（实际用来盛放Y坐标值）
+
+    $.ajax({
+			url: '/datamanage/0',
+			contentType: 'application/json;charset=UTF-8',
+			cache:false,
+			dataType: 'json',
+			success: function (response) {
+
+				 $.each(response.list, function (index, item) {
+                names.push(item.name);    //挨个取出类别并填入类别数组                    
+                nums.push(item.num);    //挨个取出销量并填入销量数组
+            });
+                myChart.hideLoading();
+
+                 myChart.setOption({        //加载数据图表
+                xAxis: {
+                    data: names
+                },
+                series: [{
+                    data: nums
+                }]
+            });
+
+			}
+		});
+
+  }
+
+
+
+function loadVolunteerChart(){
+    	var myChart = echarts.init(document.getElementById('main2'));
+
+    	myChart.setOption({
+    	color: ['#3D7A54'],
+    	tooltip : {
+			trigger: 'axis',
+			axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+				type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+			 }
+         },
+        grid: {
+			left: '3%',
+			right: '4%',
+			bottom: '3%',
+			containLabel: true
+         },
+        xAxis : [
+        	{
+				type : 'category',
+				data : [],
+				axisTick: {
+					alignWithLabel: true
+				}
+        	}
+    	],
+        yAxis : [
+           {
+              type : 'value',
+              minInterval:1
+           }
+         ],
+    series : [
+        {
+            name:'次数',
+            type:'bar',
+            barWidth: '60%',
+            data:[]
+        }
+    ]
+  });
+  myChart.showLoading();
+
+    var names = [];    //（实际用来盛放X轴坐标值）
+    var nums = [];    //（实际用来盛放Y坐标值）
+
+    $.ajax({
+			url: '/datamanage/1',
+			contentType: 'application/json;charset=UTF-8',
+			cache:false,
+			dataType: 'json',
+			success: function (response) {
+
+				 $.each(response.list, function (index, item) {
+                names.push(item.name);    //挨个取出类别并填入类别数组                    
+                nums.push(item.num);    //挨个取出销量并填入销量数组
+            });
+
+          myChart.hideLoading();
+          myChart.setOption({        //加载数据图表
+                xAxis: {
+                    data: names
+                },
+                series: [{
+                    data: nums
+                }]
+            });
+
+			}
+		});
+
+  }
+
+
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

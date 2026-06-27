@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Virtual environment
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Only block the 200MB OpenPose model (>100MB GitHub limit)
+
+# Test videos
+*.avi
+*.mp4
+*.mov
+*.wmv
+
+# Output directories
+**/detected_falls/
+**/detected_frames/
+**/detected_faces/
+**/supervision/
+**/output/
+
+# Task output images
+**/tasks/task_*/images/
+
+# Dataset images
+**/dataset/
+**/faces/
+code/
+models/
+audios/
+**/points_det/

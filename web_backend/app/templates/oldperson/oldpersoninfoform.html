@@ -1,0 +1,178 @@
+<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        {% if selectdata.id==0 %}
+					  		<h4 class="modal-title">添加记录</h4>
+						 {% else %}
+							<h4 class="modal-title">编辑</h4>
+						{% endif %}
+
+					</div>
+					<div class="modal-body">
+                        <div class="box-body big">
+                            <form class="form-horizontal" action="/saveoldpersoninfo" method="post" role="form">
+								<input type="hidden" name="record_id" value="{{selectdata.id}}">
+                                <input type="hidden" name="imgset_dir" value="{{selectdata.imgset_dir}}">
+                                <input type="hidden" name="profile_photo" value="{{selectdata.profile_photo}}">
+
+								                <div class="form-group">
+													<label class="col-sm-3 control-label">姓名</label>
+													<div class="col-sm-2">
+													  <input class="form-control" id="focusedInput" name="username" type="text" value="{{selectdata.username}}">
+													</div>
+
+                                                    <label class="col-sm-3 control-label">房间号</label>
+													<div class="col-sm-2">
+														<input class="form-control" value="{{selectdata.room_number}}" name="room_number" id="disabledInput" type="text" >
+													</div>
+												  </div>
+
+												  <div class="form-group">
+													<label class="col-sm-3 control-label">性别</label>
+													<div class="col-sm-2">
+														<input type="text" name="gender" value="{{selectdata.gender}}" class="form-control tip-focus">
+													</div>
+
+                                                      <label class="col-sm-3 control-label">健康状况</label>
+													<div class="col-sm-2">
+														<input type="text" name="health_state" value="{{selectdata.health_state}}"   class="form-control tip-focus">
+													</div>
+												  </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label">身份证号</label>
+                                                        <div class="col-sm-7">
+                                                            <input type="text" name="idcard" value="{{selectdata.id_card}}"   id="idcard"    class="form-control tip-focus">
+                                                        </div>
+
+												  </div>
+
+                                                 <div class="form-group">
+													<label class="col-sm-3 control-label">头像信息</label>
+													<div class="col-xs-3">
+                                                        <img src="img/oldperson/{{selectdata.id}}/{{selectdata.profile_photo}}" alt="" class="img-responsive">
+													</div>
+                                                 </div>
+
+												  <div class="form-group">
+													<label class="col-sm-3 control-label">入园日期</label>
+													<div class="col-xs-3">
+														<input type="text" name="checkin_date" value="{{selectdata.checkin_date}}" id="datepicker"  onclick="callDate('datepicker');" class="form-control datepicker">
+													</div>
+
+												  </div>
+												  <div class="form-group">
+                                                       <label class="col-sm-3 control-label">出生日期</label>
+													<div class="col-xs-3">
+														<input type="text" name="birthday" value="{{selectdata.birthday}}"   id="birthday"  onclick="callDate('birthday');" class="form-control datepicker">
+													</div>
+
+												  </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-4 control-label">第一监护人</label>
+                                                     <label class="col-sm-4 control-label">第二监护人</label>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="col-sm-1 control-label"></label>
+                                                    <div class="col-sm-9">
+                                                        <div class="row">
+                                                          <div class="col-lg-6">
+                                                            <div class="input-group">
+                                                              <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button">姓名</button>
+                                                              </span>
+                                                              <input type="text" name="firstguardian_name"  value="{{selectdata.firstguardian_name}}" class="form-control">
+                                                            </div>
+                                                          </div>
+                                                          <div class="col-lg-6">
+                                                            <div class="input-group">
+                                                                <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button">姓名</button>
+                                                              </span>
+                                                              <input type="text" name="secondguardian_name" value="{{selectdata.secondguardian_name}}"  class="form-control">
+
+                                                            </div>
+                                                          </div>
+													    </div>
+
+                                                        <div class="row">
+                                                          <div class="col-lg-6">
+                                                            <div class="input-group">
+                                                              <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button">关系</button>
+                                                              </span>
+                                                              <input type="text"  name="firstguardian_relationship"  value="{{selectdata.firstguardian_relationship}}" class="form-control">
+                                                            </div>
+                                                          </div>
+                                                          <div class="col-lg-6">
+                                                            <div class="input-group">
+                                                                <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button">关系</button>
+                                                              </span>
+                                                              <input type="text"  name="secondguardian_relationship"  value="{{selectdata.secondguardian_relationship}}" class="form-control">
+
+                                                            </div>
+                                                          </div>
+													    </div>
+
+                                                        <div class="row">
+                                                          <div class="col-lg-6">
+                                                            <div class="input-group">
+                                                              <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button">电话</button>
+                                                              </span>
+                                                              <input type="text" class="form-control"  name="firstguardian_phone"  value="{{selectdata.firstguardian_phone}}">
+                                                            </div>
+                                                          </div>
+                                                          <div class="col-lg-6">
+                                                            <div class="input-group">
+                                                                <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button">电话</button>
+                                                              </span>
+                                                              <input type="text" class="form-control" name="secondguardian_phone"  value="{{selectdata.secondguardian_phone}}">
+
+                                                            </div>
+                                                          </div>
+													    </div>
+
+                                                        <div class="row">
+                                                          <div class="col-lg-6">
+                                                            <div class="input-group">
+                                                              <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button">微信</button>
+                                                              </span>
+                                                              <input type="text" class="form-control" name="firstguardian_wechat"  value="{{selectdata.firstguardian_wechat}}">
+                                                            </div>
+                                                          </div>
+                                                          <div class="col-lg-6">
+                                                            <div class="input-group">
+                                                                <span class="input-group-btn">
+                                                                <button class="btn btn-default" type="button">微信</button>
+                                                              </span>
+                                                              <input type="text" class="form-control" name="secondguardian_wechat"  value="{{selectdata.secondguardian_wechat}}">
+
+                                                            </div>
+                                                          </div>
+													    </div>
+
+													</div>
+                                                </div>
+
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                  <button type="submit"  class="btn btn-primary">保存</button>
+                                </div>
+                            </form>
+                        </div>
+					</div>
+
+				  </div>
+				</div>
+			  </div>
+
+
+						<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->

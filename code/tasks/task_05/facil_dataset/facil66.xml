@@ -1,0 +1,26 @@
+<annotation>
+	<folder>facil_dataset</folder>
+	<filename>facil66.jpg</filename>
+	<path>E:\facil_dataset\facil66.jpg</path>
+	<source>
+		<database>Unknown</database>
+	</source>
+	<size>
+		<width>640</width>
+		<height>360</height>
+		<depth>3</depth>
+	</size>
+	<segmented>0</segmented>
+	<object>
+		<name>face</name>
+		<pose>Unspecified</pose>
+		<truncated>0</truncated>
+		<difficult>0</difficult>
+		<bndbox>
+			<xmin>209</xmin>
+			<ymin>91</ymin>
+			<xmax>336</xmax>
+			<ymax>250</ymax>
+		</bndbox>
+	</object>
+</annotation>

@@ -1,0 +1,89 @@
+<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
+<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					  {% if selectdata.id==0 %}
+					  		<h4 class="modal-title">添加记录</h4>
+						 {% else %}
+							<h4 class="modal-title">编辑</h4>
+						{% endif %}
+					</div>
+					<div class="modal-body">
+                        <div class="box-body big">
+                            <form class="form-horizontal" action="/savevolunteerinfo" method="post" role="form">
+								<input type="hidden" name="record_id" value="{{selectdata.id}}">
+								<input type="hidden" name="imgset_dir" value="{{selectdata.imgset_dir}}">
+                                <input type="hidden" name="profile_photo" value="{{selectdata.profile_photo}}">
+
+								                <div class="form-group">
+													<label class="col-sm-3 control-label">姓名</label>
+													<div class="col-sm-6">
+													  <input class="form-control" id="focusedInput" name="username" type="text" value="{{selectdata.name}}">
+													</div>
+												  </div>
+                                                 <div class="form-group">
+													<label class="col-sm-3 control-label">头像信息</label>
+													<div class="col-sm-6">
+                                                        <img src="img/volunteer/{{selectdata.id}}/{{selectdata.profile_photo}}" alt="" class="img-responsive">
+													</div>
+												  </div>
+												  <div class="form-group">
+													<label class="col-sm-3 control-label">电话</label>
+													<div class="col-sm-6">
+														<input class="form-control" value="{{selectdata.phone}}" name="phone" id="disabledInput" type="text" >
+													</div>
+												  </div>
+												  <div class="form-group">
+													<label class="col-sm-3 control-label">性别</label>
+													<div class="col-sm-6">
+														<input type="text" name="gender" value="{{selectdata.gender}}" class="form-control tip-focus">
+													</div>
+												  </div>
+												  <div class="form-group">
+													<label class="col-sm-3 control-label">入园日期</label>
+													<div class="col-sm-6">
+														<input type="text" name="checkin_date" value="{{selectdata.checkin_date}}" id="hire_date"  onclick="callDate('hire_date');" class="form-control tip-focus">
+													</div>
+												  </div>
+												  <div class="form-group">
+													<label class="col-sm-3 control-label">出生日期</label>
+													<div class="col-sm-6">
+														<input type="text" name="birthday" value="{{selectdata.birthday}}" id="birthday"  onclick="callDate('birthday');"  class="form-control tip-focus">
+													</div>
+												  </div>
+								                  <div class="form-group">
+													<label class="col-sm-3 control-label">身份证号</label>
+													<div class="col-sm-6">
+														<input type="text" name="id_card" value="{{selectdata.id_card}}"   class="form-control tip-focus">
+													</div>
+												  </div>
+
+                                                {% if selectdata.id !=0 %}
+
+												  <div class="form-group">
+													<label class="col-sm-3 control-label">离园日期</label>
+													<div class="col-sm-6">
+														<input type="text" name="resign_date"  value="{{selectdata.checkout_date}}" id="resign_date"  onclick="callDate('resign_date');"  class="form-control tip-focus">
+													</div>
+												  </div>
+                                                {% endif %}
+
+
+
+
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                  <button type="submit"  class="btn btn-primary">保存</button>
+                                </div>
+                            </form>
+                        </div>
+					</div>
+
+				  </div>
+				</div>
+			  </div>
+
+
+						<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->

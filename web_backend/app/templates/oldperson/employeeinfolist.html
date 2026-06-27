@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>工作人员信息</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- STYLESHEETS --><!--[if lt IE 9]><script src="js/flot/excanvas.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/cloud-admin.css" >
+	<link rel="stylesheet" type="text/css"  href="css/themes/default.css" id="skin-switcher" >
+	<link rel="stylesheet" type="text/css"  href="css/responsive.css" >
+	
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- JQUERY UI-->
+	<link rel="stylesheet" type="text/css" href="js/jquery-ui-1.10.3.custom/css/custom-theme/jquery-ui-1.10.3.custom.min.css" />
+	<!-- DATE RANGE PICKER -->
+	<link rel="stylesheet" type="text/css" href="js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+	<!-- DATA TABLES -->
+	<link rel="stylesheet" type="text/css" href="js/datatables/media/css/jquery.dataTables.min.css" />
+	<link rel="stylesheet" type="text/css" href="js/datatables/media/assets/css/datatables.min.css" />
+	<link rel="stylesheet" type="text/css" href="js/datatables/extras/TableTools/media/css/TableTools.min.css" />
+	<!-- FONTS -->
+	<link href='font-awesome/fonts/open-sans.css' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/custom.css" >
+</head>
+<body>
+	<!-- HEADER -->
+	{% include 'topbar.html' %}
+	<!--/HEADER -->
+	
+	<!-- PAGE -->
+	<section id="page">
+				<!-- SIDEBAR -->
+				{% include 'leftsidebar.html' %}
+				<!-- /SIDEBAR -->
+		<div id="main-content">
+			<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
+			<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					  <h4 class="modal-title">信息编辑</h4>
+					</div>
+					<div class="modal-body">
+					  Here goes box setting content.
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					  <button type="button" class="btn btn-primary">保存</button>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
+			<div class="container">
+				<div class="row">
+					<div id="content" class="col-lg-12">
+						<!-- PAGE HEADER-->
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="page-header">
+									<!-- STYLER -->
+									
+									<!-- /STYLER -->
+									<!-- BREADCRUMBS -->
+									<ul class="breadcrumb">
+										<li>
+											<i class="fa fa-home"></i>
+											<a href="/datamanage">主页</a>
+										</li>
+										<li>
+											<a href="#">工作人员信息</a>
+										</li>
+									</ul>
+									<!-- /BREADCRUMBS -->
+									<div class="clearfix">
+										<h3 class="content-title pull-left">工作人员信息</h3>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- /PAGE HEADER -->
+
+						<!-- EXPORT TABLES -->
+						<div class="row">
+							<div class="col-md-12">
+								<!-- BOX -->
+								<div class="box">
+									<div class="box-title" style="display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-bottom:1px solid #E8DDD4;">
+										<span style="font-size:14px;font-weight:700;color:#1A1209;">员工信息列表</span>
+										<button class="btn btn-sm btn-primary" onclick="selectdata(0)">添加员工</button>
+									</div>
+									<div class="box-body">
+										<table id="datatable2" cellpadding="0" cellspacing="0" border="0"
+											   class="datatable table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>编号</th>
+													<th>姓名</th>
+													<th>电话</th>
+													<th>性别</th>
+													<th >入园日期</th>
+													<th>出生日期</th>
+													<th>身份证号</th>
+
+													<th class="hidden-xs">编辑</th>
+												</tr>
+											</thead>
+											<tbody>
+
+											{% for data in listdata %}
+											   <tr class="gradeX">
+												   <td>{{data.id}}</td>
+												   <td>{{data.username}}</td>
+												   <td>{{data.phone}}</td>
+												   <td class="hidden-xs">{{data.gender}}</td>
+												   {% if data.hire_date %}
+												    <td class="center">{{data.hire_date.strftime('%Y-%m-%d')}}</td>
+												   {%  else %}
+												    <td class="center">{{data.hire_date}}</td>
+												   {% endif %}
+												   {% if data.birthday %}
+												    <td class="center">{{data.birthday.strftime('%Y-%m-%d')}}</td>
+												   {%  else %}
+												    <td class="center">{{data.birthday}}</td>
+												   {% endif %}
+
+												   <td>{{data.id_card}}</td>
+												   <td>
+
+													<a href="#" onclick="selectdata({{data.id}});return false;" class="btn btn-xs btn-default">编辑</a>
+														<a href="/setemployeeid/{{data.id}}" class="btn btn-xs btn-default">获取头像</a>
+														<a href="/deleteemployeeinfo/{{data.id}}" class="btn btn-xs btn-danger" onclick="return confirm('确认删除？')">删除</a>
+													</td></tr>
+											{%- endfor %}
+											</tbody></table>
+									</div></div></div></div>
+						<!-- /EXPORT TABLES -->
+						<div class="separator"></div>
+
+
+
+						<div class="footer-tools">
+							<span class="go-top">
+								<i class="fa fa-chevron-up"></i> Top
+							</span>
+						</div>
+					</div><!-- /CONTENT-->
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<script src="js/jquery/jquery-2.0.3.min.js"></script>
+	<!-- JQUERY UI-->
+	<script src="js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<!-- BOOTSTRAP -->
+	<script src="bootstrap-dist/js/bootstrap.min.js"></script>
+	
+		
+	<!-- DATE RANGE PICKER -->
+	<script src="js/bootstrap-daterangepicker/moment.min.js"></script>
+	
+	<script src="js/bootstrap-daterangepicker/daterangepicker.min.js"></script>
+	<!-- SLIMSCROLL -->
+	<script type="text/javascript" src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script><script type="text/javascript" src="js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
+	<!-- BLOCK UI -->
+	<script type="text/javascript" src="js/jQuery-BlockUI/jquery.blockUI.min.js"></script>
+	<!-- DATA TABLES -->
+	<script type="text/javascript" src="js/datatables/media/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="js/datatables/media/assets/js/datatables.min.js"></script>
+	<script type="text/javascript" src="js/datatables/extras/TableTools/media/js/TableTools.min.js"></script>
+	<script type="text/javascript" src="js/datatables/extras/TableTools/media/js/ZeroClipboard.min.js"></script>
+	<!-- COOKIE -->
+	<script type="text/javascript" src="js/jQuery-Cookie/jquery.cookie.min.js"></script>
+	<!-- CUSTOM SCRIPT -->
+	<script src="js/script.js"></script>
+	<script>
+		jQuery(document).ready(function() {		
+			App.setPage("dynamic_table");  //Set current page
+			App.init(); //Initialise plugins and elements
+
+		});
+
+		//暂时不用,可以直接使用 href=/deleteemployeeinfo/id
+		function deletedata(id)
+		{
+			//alert(id);
+			$.ajax({
+			url: '/deleteemployeeinfo'+'/'+id,
+			contentType: 'application/json;charset=UTF-8',
+			cache:false,
+			dataType: 'html',
+			success: function (response) {
+				 $('.box').html($(response).find('.box').html());
+				}
+			});
+		}
+
+		function selectdata(id)
+		{
+			$.ajax({
+			url: '/editemployeeinfo'+'/'+id,
+			contentType: 'application/json;charset=UTF-8',
+			cache:false,
+			dataType: 'html',
+			success: function (response) {
+
+				var result = $('#box-config').append(response).find('#box-config').html();
+				$('#box-config').html(result);
+
+				$('#box-config').modal('show');
+				}
+			});
+		}
+
+		//add new record
+		$('a.config').click(function() {
+           selectdata(0);
+        });
+
+ 		function callDate(id)
+		{
+			$("#"+id).datepicker({ dateFormat: 'yy-mm-dd' });
+		}
+
+
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

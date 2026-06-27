@@ -1,0 +1,241 @@
+<header class="navbar clearfix" id="header">
+		<div class="container">
+				<div class="navbar-brand">
+					<a href="/index" style="font-size:18pt;font-weight:700;letter-spacing:0.5px;text-decoration:none;">
+						<i class="fa fa-heartbeat" style="color:#E07B39;margin-right:6px;"></i>智慧养老管理平台
+					</a>
+
+				</div>
+
+				<!-- BEGIN TOP NAVIGATION MENU -->
+
+									<ul class="nav navbar-nav pull-right">
+						<li class="dropdown" id="header-notification">
+							<a href="#" onclick="showDangerModal();return false;" class="dropdown-toggle">
+								<i class="fa fa-bell"></i>
+								<span class="badge" id="danger-badge" style="display:none;background:#e74c3c;color:#fff">0</span>
+							</a>
+						</li>
+						<li class="dropdown" id="header-message">
+							<a href="#" onclick="showSummaryModal();return false;" class="dropdown-toggle">
+							<i class="fa fa-envelope"></i>
+							</a>
+						</li>
+						<li class="dropdown" id="header-tasks">
+							<a href="#" onclick="showElderlyModal();return false;" class="dropdown-toggle">
+							<i class="fa fa-tasks"></i>
+							</a>
+						</li>
+
+
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+						<!-- BEGIN USER LOGIN DROPDOWN -->
+						<li class="dropdown user" id="header-user">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+								<img alt="" src="img/avatars/avatar3.jpg" />
+								<span class="username">{{current_user.real_name}}</span>
+								<i class="fa fa-angle-down"></i>
+							</a>
+							<ul class="dropdown-menu">
+								<li><a href="#" onclick="changepass();"><i class="fa fa-cog"></i> 修改密码</a></li>
+								<li><a href="/logout"><i class="fa fa-power-off"></i>退出</a></li>
+							</ul>
+						</li>
+						<!-- END USER LOGIN DROPDOWN -->
+					</ul>
+				<!-- END TOP NAVIGATION MENU -->
+		</div>
+
+	</header>
+
+<!-- 修改密码弹窗 -->
+<div id="main-content">
+	<form class="form-horizontal" action="/changepassword" method="post" role="form">
+			<div class="modal fade" id="box-config-top" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					  <h4 class="modal-title">修改密码</h4>
+					</div>
+					<div class="modal-body">
+
+						 <div class="form-group">
+													<label class="col-sm-6 control-label">原密码</label>
+													<div class="col-sm-4">
+													  <input type="password" name="originalpass" class="form-control"  id="originalpass" >
+													</div>
+
+                                                    <label class="col-sm-6 control-label">新密码</label>
+													<div class="col-sm-4">
+													  <input type="password" name="newpass" class="form-control"  id="newpass" >
+													</div>
+							                        <label class="col-sm-6 control-label">确认新密码</label>
+													<div class="col-sm-4">
+													  <input type="password" onkeyup="validatepass()" name="newpass2" class="form-control"  id="newpass2" >
+														<span id="tishiid" class="menu-text"></span>
+													</div>
+						 </div>
+
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					  <button type="submit" id="saveid" class="btn btn-primary">保存</button>
+					</div>
+				  </div>
+				</div>
+			  </div>
+	</form>
+</div>
+
+<!-- 🔔 危险预警弹窗 -->
+<div class="modal fade" id="dangerModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-bell" style="color:red"></i> 危险预警</h4>
+      </div>
+      <div class="modal-body" id="dangerModalBody" style="max-height:400px;overflow-y:auto;">
+        加载中...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✉️ 事件统计弹窗 -->
+<div class="modal fade" id="summaryModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-envelope" style="color:#337ab7"></i> 今日事件统计</h4>
+      </div>
+      <div class="modal-body" id="summaryModalBody">
+        加载中...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 📋 老人出勤状态弹窗 -->
+<div class="modal fade" id="elderlyModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title"><i class="fa fa-tasks" style="color:#5cb85c"></i> 老人今日检测状态</h4>
+      </div>
+      <div class="modal-body" id="elderlyModalBody">
+        加载中...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function validatepass(){
+			var pwd = $("#newpass").val();
+			var pwd1 = $("#newpass2").val();
+
+			if (pwd == pwd1)
+			{
+				$("#tishiid").html("两次密码相同");
+         		$("#tishiid").css("color","green");
+         		$("#saveid").removeAttr("disabled");
+			}
+			else
+			{
+				$("#tishiid").html("两次密码不一样");
+         		$("#tishiid").css("color","red");
+				$("#saveid").attr("disabled","disabled");
+			}
+}
+
+	function changepass(){
+	$('#box-config-top').modal('show');
+	}
+
+// 未读ID存在localStorage
+function getReadIds() { return JSON.parse(localStorage.getItem('danger_read') || '[]'); }
+function markRead(id) {
+    var ids = getReadIds();
+    if (ids.indexOf(id) === -1) { ids.push(id); localStorage.setItem('danger_read', JSON.stringify(ids)); }
+    $('#danger-row-' + id).find('.btn-read').text('已读').prop('disabled', true).removeClass('btn-warning').addClass('btn-default');
+    updateDangerBadge();
+}
+function updateDangerBadge() {
+    $.get('/api/notifications/danger', function(data) {
+        if (!data || !data.events) { $('#danger-badge').hide(); return; }
+        var readIds = getReadIds();
+        var unread = data.events.filter(function(e) { return readIds.indexOf(e.id) === -1; }).length;
+        if (unread > 0) { $('#danger-badge').text(unread).show(); }
+        else { $('#danger-badge').hide(); }
+    }).fail(function() { $('#danger-badge').hide(); });
+}
+
+function showDangerModal() {
+    $('#dangerModalBody').html('<p>加载中...</p>');
+    $('#dangerModal').modal('show');
+    $.get('/api/notifications/danger', function(data) {
+        var readIds = getReadIds();
+        var html = '<p>共 <b>' + data.count + '</b> 条危险事件</p><table class="table table-striped"><tr><th>时间</th><th>地点</th><th>描述</th><th></th></tr>';
+        $.each(data.events, function(i, e) {
+            var typeName = {2:'陌生人', 3:'摔倒', 4:'入侵'}[e.event_type] || '未知';
+            var isRead = readIds.indexOf(e.id) !== -1;
+            var btn = isRead
+                ? '<button class="btn btn-xs btn-default btn-read" disabled>已读</button>'
+                : '<button class="btn btn-xs btn-warning btn-read" onclick="markRead(' + e.id + ')">标记已读</button>';
+            html += '<tr id="danger-row-' + e.id + '"><td>' + e.event_date + '</td><td>' + e.event_location + '</td><td><span style="color:red">【' + typeName + '】</span> ' + e.event_desc + '</td><td>' + btn + '</td></tr>';
+        });
+        html += '</table>';
+        $('#dangerModalBody').html(html);
+    }).fail(function() {
+        $('#dangerModalBody').html('<p style="color:red">加载失败</p>');
+    });
+}
+
+function showSummaryModal() {
+    $('#summaryModalBody').html('<p>加载中...</p>');
+    $('#summaryModal').modal('show');
+    $.get('/api/notifications/summary', function(data) {
+        var html = '<p>今日共 <b>' + data.total + '</b> 条事件记录</p><table class="table table-striped"><tr><th>事件类型</th><th>数量</th></tr>';
+        $.each(data.detail, function(i, d) {
+            var color = {'微笑事件':'green', '义工互动':'blue', '陌生人出现':'red', '摔倒报警':'red', '禁区入侵':'red'}[d.type] || '';
+            html += '<tr><td>' + d.type + '</td><td><b style="color:' + color + '">' + d.num + '</b></td></tr>';
+        });
+        html += '</table>';
+        $('#summaryModalBody').html(html);
+    }).fail(function() {
+        $('#summaryModalBody').html('<p style="color:red">加载失败</p>');
+    });
+}
+
+function showElderlyModal() {
+    $('#elderlyModalBody').html('<p>加载中...</p>');
+    $('#elderlyModal').modal('show');
+    $.get('/api/notifications/elderly-status', function(data) {
+        var html = '<table class="table table-striped"><tr><th>姓名</th><th>状态</th></tr>';
+        $.each(data.list, function(i, item) {
+            var icon = item.status == '已检测' ? '<span style="color:green">● 已检测</span>' : '<span style="color:orange">○ 未出现</span>';
+            html += '<tr><td>' + item.name + '</td><td>' + icon + '</td></tr>';
+        });
+        html += '</table>';
+        $('#elderlyModalBody').html(html);
+    }).fail(function() {
+        $('#elderlyModalBody').html('<p style="color:red">加载失败</p>');
+    });
+}
+
+$(document).ready(function() { updateDangerBadge(); });
+</script>

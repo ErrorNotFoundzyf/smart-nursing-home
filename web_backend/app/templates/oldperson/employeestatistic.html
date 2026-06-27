@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<title>工作人员统计分析</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<!-- STYLESHEETS --><!--[if lt IE 9]><script src="js/flot/excanvas.min.js"></script><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script><![endif]-->
+	<link rel="stylesheet" type="text/css" href="css/cloud-admin.css" >
+	<link rel="stylesheet" type="text/css"  href="css/themes/default.css" id="skin-switcher" >
+	<link rel="stylesheet" type="text/css"  href="css/responsive.css" >
+	
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<!-- JQUERY UI-->
+	<link rel="stylesheet" type="text/css" href="js/jquery-ui-1.10.3.custom/css/custom-theme/jquery-ui-1.10.3.custom.min.css" />
+	<!-- DATE RANGE PICKER -->
+	<link rel="stylesheet" type="text/css" href="js/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+
+	<!-- FONTS -->
+	<link href='font-awesome/fonts/open-sans.css' rel='stylesheet' type='text/css'>
+	<!-- DATE PICKER -->
+	<link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.min.css" />
+	<link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.date.min.css" />
+	<link rel="stylesheet" type="text/css" href="js/datepicker/themes/default.time.min.css" />
+
+	<!-- XCHARTS -->
+	<link rel="stylesheet" type="text/css" href="js/xcharts/xcharts.min.css" />
+	<link rel="stylesheet" type="text/css" href="css/custom.css" >
+</head>
+<body>
+	<!-- HEADER -->
+	{% include 'topbar.html' %}
+	<!--/HEADER -->
+	
+	<!-- PAGE -->
+	<section id="page">
+		{% include 'leftsidebar.html' %}
+
+		<div id="main-content">
+			<!-- SAMPLE BOX CONFIGURATION MODAL FORM-->
+			<div class="modal fade" id="box-config" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+					  <h4 class="modal-title">Box Settings</h4>
+					</div>
+					<div class="modal-body">
+					  Here goes box setting content.
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					  <button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				  </div>
+				</div>
+				<div id="chart-dash" class="chart"></div>
+			  </div>
+			<!-- /SAMPLE BOX CONFIGURATION MODAL FORM-->
+			<div class="container">
+				<div class="row">
+					<div id="content" class="col-lg-12">
+						<!-- PAGE HEADER-->
+						<div class="row">
+							<div class="col-sm-12">
+								<div class="page-header">
+									<!-- STYLER -->
+
+									<!-- /STYLER -->
+									<!-- BREADCRUMBS -->
+									<ul class="breadcrumb">
+										<li>
+											<i class="fa fa-home"></i>
+											<a href="/datamanage">主页</a>
+										</li>
+										<li>主面板 - 数据展示</li>
+									</ul>
+									<!-- /BREADCRUMBS -->
+									<div class="clearfix">
+										<h3 class="content-title pull-left">工作人员统计分析</h3>
+										<!-- DATE RANGE PICKER -->
+
+										<!-- /DATE RANGE PICKER -->
+									</div>
+
+								</div>
+							</div>
+						</div>
+						<!-- /PAGE HEADER -->
+						<!-- DYNAMIC CHART -->
+						<div class="row">
+							<div class="col-md-6">
+								<!-- BOX -->
+								<div class="box">
+								<div class="box-title" style="display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid #E8DDD4;">
+									<i class="fa fa-line-chart" style="color:#CF6A48;margin-right:8px;"></i>
+									<span style="font-size:14px;font-weight:700;color:#1A1209;">工作人员入园趋势图</span>
+								</div>
+								<div class="box-body" id="main" style="width:100%;height:350px;"></div>
+							</div>
+								<!-- /BOX -->
+							</div>
+							<div class="col-md-6">
+								<!-- BOX -->
+								<div class="box">
+								<div class="box-title" style="display:flex;align-items:center;padding:14px 20px;border-bottom:1px solid #E8DDD4;">
+									<i class="fa fa-bar-chart" style="color:#CF6A48;margin-right:8px;"></i>
+									<span style="font-size:14px;font-weight:700;color:#1A1209;">工作人员流失率</span>
+								</div>
+								<div class="box-body" id="main2" style="width:100%;height:350px;"></div>
+							</div>
+								<!-- /BOX -->
+							</div>
+						</div>
+						<!-- /DYNAMIC CHART -->
+
+
+						<div class="footer-tools">
+							<span class="go-top">
+								<i class="fa fa-chevron-up"></i> Top
+							</span>
+						</div>
+					</div><!-- /CONTENT-->
+				</div>
+			</div>
+		</div>
+	</section>
+	<!--/PAGE -->
+	<!-- JAVASCRIPTS -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<!-- JQUERY -->
+	<script src="js/jquery/jquery-2.0.3.min.js"></script>
+	<!-- JQUERY UI-->
+	<script src="js/jquery-ui-1.10.3.custom/js/jquery-ui-1.10.3.custom.min.js"></script>
+	<!-- BOOTSTRAP -->
+	<script src="bootstrap-dist/js/bootstrap.min.js"></script>
+	
+		
+	<!-- DATE RANGE PICKER -->
+	<script src="js/bootstrap-daterangepicker/moment.min.js"></script>
+	
+	<script src="js/bootstrap-daterangepicker/daterangepicker.min.js"></script>
+	<!-- SLIMSCROLL -->
+	<script type="text/javascript" src="js/jQuery-slimScroll-1.3.0/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript" src="js/jQuery-slimScroll-1.3.0/slimScrollHorizontal.min.js"></script>
+	<!-- BLOCK UI -->
+	<script type="text/javascript" src="js/jQuery-BlockUI/jquery.blockUI.min.js"></script>
+	<!-- D3 -->
+	<script type="text/javascript" src="js/d3/d3.v3.min.js"></script>
+	<!-- XCHARTS -->
+	<script type="text/javascript" src="js/xcharts/xcharts.min.js"></script>
+	<!-- COOKIE -->
+	<script type="text/javascript" src="js/jQuery-Cookie/jquery.cookie.min.js"></script>
+	<!-- SPARKLINES -->
+	<script type="text/javascript" src="js/sparklines/jquery.sparkline.min.js"></script>
+	<script  type="text/javascript" src="js/echarts/echarts.min.js"></script>
+
+	<!-- CUSTOM SCRIPT -->
+	<script src="js/script.js"></script>
+	<script>
+		// 基于准备好的dom，初始化echarts实例
+
+
+ function loadCheckIn()
+ {
+ 	var myChart = echarts.init(document.getElementById('main'));
+ 	myChart.setOption({
+    color: ['#CF6A48'],
+    xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    },
+    yAxis: {
+        type: 'value',
+        minInterval:1
+    },
+    series: [{
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line'
+    }]
+   });
+
+   myChart.showLoading();
+
+    var names = [];    //（实际用来盛放X轴坐标值）
+    var nums = [];    //（实际用来盛放Y坐标值）
+
+    $.ajax({
+			url: '/employeestatistic/checkin',
+			contentType: 'application/json;charset=UTF-8',
+			cache:false,
+			dataType: 'json',
+			success: function (response) {
+
+				 $.each(response.list, function (index, item) {
+                names.push(item.name);    //挨个取出类别并填入类别数组                    
+                nums.push(item.num);    //挨个取出销量并填入销量数组
+            });
+                myChart.hideLoading();
+
+                 myChart.setOption({        //加载数据图表
+                xAxis: {
+                    data: names
+                },
+                series: [{
+                    data: nums
+                }]
+            });
+
+			}
+		});
+ }
+
+
+function loadResign()
+ {
+ 	var myChart = echarts.init(document.getElementById('main2'));
+ 	myChart.setOption({
+    color: ['#3D7A54'],
+    xAxis: {
+        type: 'category',
+        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+    },
+    yAxis: {
+        type: 'value',
+        minInterval:1
+    },
+    series: [{
+        data: [820, 932, 901, 934, 1290, 1330, 1320],
+        type: 'line'
+    }]
+   });
+
+   myChart.showLoading();
+
+    var names = [];    //（实际用来盛放X轴坐标值）
+    var nums = [];    //（实际用来盛放Y坐标值）
+
+    $.ajax({
+			url: '/employeestatistic/resign',
+			contentType: 'application/json;charset=UTF-8',
+			cache:false,
+			dataType: 'json',
+			success: function (response) {
+
+				 $.each(response.list, function (index, item) {
+                names.push(item.name);    //挨个取出类别并填入类别数组                    
+                nums.push(item.num);    //挨个取出销量并填入销量数组
+            });
+                myChart.hideLoading();
+
+                 myChart.setOption({        //加载数据图表
+                xAxis: {
+                    data: names
+                },
+                series: [{
+                    data: nums
+                }]
+            });
+
+			}
+		});
+ }
+
+
+
+		jQuery(document).ready(function() {		
+			App.setPage("index");  //Set current page
+			App.init(); //Initialise plugins and elements
+
+			 loadCheckIn();
+			 loadResign();
+
+		});
+
+
+	</script>
+	<!-- /JAVASCRIPTS -->
+</body>
+</html>

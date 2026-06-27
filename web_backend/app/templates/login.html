@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<title>智慧养老管理平台 - 登录</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="css/cloud-admin.css">
+	<link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="css/animatecss/animate.min.css">
+	<link href='font-awesome/fonts/open-sans.css' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+	<style>
+		body.login { margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center; background: #EDE6DC !important; }
+		.login-wrap { width: 100%; max-width: 420px; padding: 0 16px; }
+		.login-logo { text-align: center; margin-bottom: 32px; }
+		.login-logo .logo-icon { width: 64px; height: 64px; background: rgba(207,106,72,0.12); border-radius: 16px; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+		.login-logo .logo-icon i { font-size: 28px; color: #CF6A48; }
+		.login-logo h2 { color: #1A1209; font-size: 22px; font-weight: 700; margin: 0 0 6px; letter-spacing: 1px; }
+		.login-logo p { color: #7A6555; font-size: 13px; margin: 0; letter-spacing: 0.5px; }
+		.login-card { background: #FFFFFF; border-radius: 16px; padding: 36px 32px; box-shadow: 0 4px 24px rgba(60,30,10,0.12), 0 0 0 1px #E8DDD4; }
+		.login-card h4 { color: #1A1209; font-size: 16px; font-weight: 600; margin: 0 0 24px; }
+		.login-card .form-group { margin-bottom: 18px; position: relative; }
+		.login-card label { color: #7A6555; font-size: 12.5px; font-weight: 600; letter-spacing: 0.3px; margin-bottom: 6px; display: block; }
+		.login-card .input-wrap { position: relative; }
+		.login-card .input-wrap i { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #B8A898; font-size: 14px; }
+		.login-card .form-control { padding-left: 36px; height: 44px; border-radius: 8px; font-size: 14px; border: 1.5px solid #E8DDD4; background: #fff; color: #1A1209; }
+		.login-card .form-control:focus { border-color: #CF6A48; box-shadow: 0 0 0 3px rgba(207,106,72,0.14); outline: none; }
+		.login-card .btn-login { width: 100%; height: 46px; font-size: 15px; font-weight: 600; background: #CF6A48; border: none; border-radius: 8px; color: #fff; letter-spacing: 0.5px; margin-top: 8px; cursor: pointer; transition: background 0.15s; }
+		.login-card .btn-login:hover { background: #A8502F; }
+		.alert-danger { border-radius: 8px; font-size: 13px; margin-bottom: 16px; border-left: 3px solid #C0392B; }
+		.login-footer { text-align: center; margin-top: 20px; color: #7A6555; font-size: 12px; }
+	</style>
+</head>
+<body class="login">
+	<div class="login-wrap animated fadeInUp">
+		<div class="login-logo">
+			<div class="logo-icon">
+				<i class="fa fa-heartbeat"></i>
+			</div>
+			<h2>智慧养老管理平台</h2>
+			<p>Smart Elderly Care Management System</p>
+		</div>
+
+		<div class="login-card">
+			<h4>管理员登录</h4>
+
+			{% for message in get_flashed_messages() %}
+				<div class="alert alert-danger">{{ message }}</div>
+			{% endfor %}
+
+			<form action="/login" method="post">
+				<div class="form-group">
+					<label for="loginEmail">邮箱地址</label>
+					<div class="input-wrap">
+						<i class="fa fa-envelope-o"></i>
+						<input type="text" class="form-control" id="loginEmail" name="email" placeholder="请输入邮箱地址">
+					</div>
+				</div>
+				<div class="form-group">
+					<label for="loginPassword">登录密码</label>
+					<div class="input-wrap">
+						<i class="fa fa-lock"></i>
+						<input type="password" class="form-control" id="loginPassword" name="password" placeholder="请输入登录密码">
+					</div>
+				</div>
+				<button type="submit" class="btn btn-login">登 录</button>
+			</form>
+		</div>
+
+		<div class="login-footer">&copy; 2026 智慧养老管理平台</div>
+	</div>
+
+	<script src="js/jquery/jquery-2.0.3.min.js"></script>
+	<script src="bootstrap-dist/js/bootstrap.min.js"></script>
+</body>
+</html>
